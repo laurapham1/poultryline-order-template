@@ -1,5 +1,6 @@
 import * as React from "react"
 import {useState, useEffect} from 'react'
+import favicon from '/'
 
 const pageStyles = {
   color: "#232129",
@@ -193,7 +194,6 @@ const IndexPage = () => {
       const itemRowString = `${inputElement.value}${metricToString(metricElement.innerHTML)} ${nameElement.innerHTML}`
       existingItems.push(itemRowString)
     })
-    if (existingItems.length === 0) return
     const orderString = existingItems.join("\n")
     // setTemplateText 
     setTemplateText(orderString)
