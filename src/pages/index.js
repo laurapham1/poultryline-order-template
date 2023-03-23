@@ -232,7 +232,7 @@ const IndexPage = () => {
         {itemList.map((item, index) => {
           return(
           <tr>
-          <input type="number" min="0" id={index} name="item-amount" onChange={handleInputBlur} style={inputStyle}/>
+          <input type="number" min="0" id={index} name="item-amount" onChange={handleInputBlur} style={inputStyle} onWheel={(e) => e.target.blur()}/>
           <td name="item-metric">{item.metric}</td>
           <td name="item-name">{item.name}</td>
         </tr>)
