@@ -22,7 +22,8 @@ const tableStyle = {
   borderSpacing: '8px',
   backgroundColor: 'white',
   border: '1px solid',
-  borderRadius: '8px'
+  borderRadius: '8px',
+  borderColor: 'gray'
 }
 
 const inputStyle = {
@@ -250,4 +251,4 @@ const IndexPage = () => {
 
 export default IndexPage
 
-export const Head = () => <title>Home Page</title>
+export const Head = () => {<><title>Home Page</title><link rel="icon" type="image/x-icon" href="/images/favicon.ico"/></>}

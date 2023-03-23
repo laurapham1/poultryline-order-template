@@ -17,4 +17,4 @@ const NotFoundPage = () => {
 
 export default NotFoundPage
 
-export const Head = () => <title>Not found</title>
+export const Head = () => {<><title>Not found</title><link rel="icon" type="image/x-icon" href="/images/favicon.ico"/></>}
