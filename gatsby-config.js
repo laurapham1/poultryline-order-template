@@ -6,5 +6,12 @@ module.exports = {
     title: `Poultryline Template App`,
     siteUrl: `https://www.yourdomain.tld`,
   },
-  plugins: [],
+  plugins: [
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        "icon": "src/images/favicon.ico"
+      }
+    },
+  ]
 }
