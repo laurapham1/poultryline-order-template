@@ -10,10 +10,6 @@ const pageStyles = {
   alignItems: 'center'
 }
 
-const loadingImageStyle = {
-  animation: 'rotation 2s infinite linear'
-}
-
 const contentStyle = {
   display: 'flex',
    gap: '12px', 
