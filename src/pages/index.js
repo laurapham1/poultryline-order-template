@@ -31,7 +31,7 @@ const inputStyle = {
   borderRadius: '4px',
   border: '1px solid black',
   padding: '4px',
-  fontSize: '24px',
+  fontSize: '18px',
   width: '50px',
 }
 
