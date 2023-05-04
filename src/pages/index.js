@@ -1,6 +1,6 @@
 import * as React from "react"
 import {useState, useEffect} from 'react'
-import favicon from '/'
+import loadingImage from '../images/favicon.ico';
 
 const pageStyles = {
   color: "#232129",
@@ -8,6 +8,10 @@ const pageStyles = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center'
+}
+
+const loadingImageStyle = {
+  animation: 'rotation 2s infinite linear'
 }
 
 const contentStyle = {
@@ -82,6 +86,10 @@ const itemList = [
     name: 'Hearts'
   },
   {
+    metric: 'kg',
+    name: 'Tenderloin'
+  },
+  {
     metric: 'box',
     name: 'Necks'
   },
@@ -91,11 +99,11 @@ const itemList = [
   },
   {
     metric: 'boxes',
-    name: 'Supreme XL FRESH & INGHAM BRAND no steggles l/s'
+    name: 'Supreme XL FRESH & INGHAM BRAND'
   },
   {
     metric: 'boxes',
-    name: 'Inghams size 9 to 11'
+    name: 'Inghams size 9 to 11 birds'
   },
   {
     metric: 'boxes',
@@ -107,7 +115,7 @@ const itemList = [
   },
   {
     metric: 'boxes',
-    name: 'Baiada size 26 to 32 bird big size l/s'
+    name: 'Baiada size 26 to 32 bird'
   },
   {
     metric: 'kg',
@@ -123,11 +131,11 @@ const itemList = [
   },
   {
     metric: 'kg',
-    name: 'Spare'
+    name: 'Spare ribs skin on'
   },
   {
-    metric: 'boxes',
-    name: 'Ribs skin on'
+    metric: 'kg',
+    name: 'Spare ribs skin off'
   },
   {
     metric: 'boxes',
@@ -140,11 +148,7 @@ const itemList = [
   {
     metric: 'kg',
     name: 'Breast fillet skin on'
-  },
-  {
-    metric: 'kg',
-    name: 'Spare ribs skin off'
-  },
+  }
 ]
 
 const metricWithSpace = ['box', 'boxes']
@@ -164,15 +168,11 @@ const activeValue = (value) => {
 const IndexPage = () => {
   const [templateText, setTemplateText] = useState("")
   const [isCopyClicked, setIsCopyClicked] = useState(false)
-  console.log({isCopyClicked})
+  const [isLoadingPage, setIsLoadingPage] = useState(true)
 
-
-  const handleClickCopy = () => {
-    let textarea = document.querySelector('textarea')
-    textarea.select()
-    document.execCommand('copy');
-    setIsCopyClicked(true)
-  }
+  useEffect(() => {
+    setIsLoadingPage(true)
+  }, [])
 
   useEffect(() => {
     if (isCopyClicked) {
@@ -181,6 +181,14 @@ const IndexPage = () => {
       }, 2500)
     }
   }, [isCopyClicked])
+
+  const handleClickCopy = () => {
+    let textarea = document.querySelector('textarea')
+    textarea.select()
+    document.execCommand('copy');
+    setIsCopyClicked(true)
+  }
+
 
   const handleOnSubmit = () => {
     const itemRows = document.querySelectorAll('tr')
@@ -218,6 +226,10 @@ const IndexPage = () => {
   const handleClickClear = () => {
     window.location.reload();
   }
+  
+  // if (isLoadingPage) {
+  //   return <><img src={loadingImage} style={loadingImageStyle} alt="Spinning Loading Chicken" id="loadingImage"/><p>Loading</p></>
+  // }
 
   return (
     <main style={pageStyles}>
@@ -251,4 +263,4 @@ const IndexPage = () => {
 
 export default IndexPage
 
-export const Head = () => {<><title>Home Page</title><link rel="icon" type="image/x-icon" href="/images/favicon.ico"/></>}
+export const Head = () => {<title>Home Page</title>}
