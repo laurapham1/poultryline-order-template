@@ -144,7 +144,17 @@ const itemList = [
   {
     metric: 'kg',
     name: 'Breast fillet skin on'
-  }
+  },
+  {
+    metric: 'boxes',
+    name: 'Boilers'
+  },{
+    metric: 'boxes',
+    name: 'Schnitzel 220 grams'
+  },{
+    metric: 'boxes',
+    name: 'Crumbed chicken Kiev'
+  },
 ]
 
 const metricWithSpace = ['box', 'boxes']
