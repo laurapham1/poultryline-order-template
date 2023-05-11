@@ -82,12 +82,12 @@ const itemList = [
     name: 'Hearts'
   },
   {
-    metric: 'kg',
-    name: 'Tenderloin'
-  },
-  {
     metric: 'box',
     name: 'Necks'
+  },
+  {
+    metric: 'kg',
+    name: 'Spare ribs skin on'
   },
   {
     metric: 'boxes',
@@ -96,10 +96,6 @@ const itemList = [
   {
     metric: 'boxes',
     name: 'Supreme XL FRESH & INGHAM BRAND'
-  },
-  {
-    metric: 'boxes',
-    name: 'Inghams size 9 to 11 birds'
   },
   {
     metric: 'boxes',
@@ -114,8 +110,27 @@ const itemList = [
     name: 'Baiada size 26 to 32 bird'
   },
   {
+    metric: 'boxes',
+    name: 'Inghams size 9 to 11 birds'
+  },
+  {
+    metric: 'boxes',
+    name: 'Chest bone'
+  },
+  {
+    metric: 'boxes',
+    name: 'Boilers'
+  },
+  {
+    metric: 'boxes',
+    name: 'Schnitzel 220 grams'
+  },{
+    metric: 'boxes',
+    name: 'Crumbed chicken Kiev'
+  },
+  {
     metric: 'kg',
-    name: 'Maryland fillet skin off'
+    name: 'Maryland fillet skinless'
   },
   {
     metric: 'kg',
@@ -123,19 +138,11 @@ const itemList = [
   },
   {
     metric: 'kg',
-    name: 'Drumstick fillet off'
+    name: 'Drumstick fillet skinless'
   },
   {
     metric: 'kg',
-    name: 'Spare ribs skin on'
-  },
-  {
-    metric: 'kg',
-    name: 'Spare ribs skin off'
-  },
-  {
-    metric: 'boxes',
-    name: 'Chest bone'
+    name: 'Spare ribs skinless'
   },
   {
     metric: 'kg',
@@ -146,14 +153,8 @@ const itemList = [
     name: 'Breast fillet skin on'
   },
   {
-    metric: 'boxes',
-    name: 'Boilers'
-  },{
-    metric: 'boxes',
-    name: 'Schnitzel 220 grams'
-  },{
-    metric: 'boxes',
-    name: 'Crumbed chicken Kiev'
+    metric: 'kg',
+    name: 'Tenderloin'
   },
 ]
 
