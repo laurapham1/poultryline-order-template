@@ -205,7 +205,7 @@ const IndexPage = () => {
       if (!activeValue(inputElement.value)) return
       const metricElement = item.querySelector('td[name="item-metric"]')
       const nameElement = item.querySelector('td[name="item-name"]')
-      const itemRowString = `${inputElement.value}${metricToString(metricElement.innerHTML)} ${nameElement.innerHTML}`
+      const itemRowString = `${inputElement.value}${metricToString(metricElement.innerText)} ${nameElement.innerText}`
       existingItems.push(itemRowString)
     })
     const orderString = existingItems.join("\n")
