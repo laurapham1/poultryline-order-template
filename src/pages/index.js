@@ -90,42 +90,46 @@ const itemList = [
     name: 'Spare ribs skin on'
   },
   {
-    metric: 'boxes',
+    metric: 'kg',
+    name: 'Drumstick fillet skinless'
+  },
+  {
+    metric: 'box',
     name: 'WINGS XXLarge'
   },
   {
-    metric: 'boxes',
+    metric: 'box',
     name: 'Supreme XL FRESH & INGHAM BRAND'
   },
   {
-    metric: 'boxes',
+    metric: 'box',
     name: 'Baiada size 17 birds'
   },
   {
-    metric: 'boxes',
+    metric: 'box',
     name: ' Baiada size 21 to 23 bird'
   },
   {
-    metric: 'boxes',
+    metric: 'box',
     name: 'Baiada size 26 to 32 bird'
   },
   {
-    metric: 'boxes',
+    metric: 'box',
     name: 'Inghams size 9 to 11 birds'
   },
   {
-    metric: 'boxes',
+    metric: 'box',
     name: 'Chest bone'
   },
   {
-    metric: 'boxes',
+    metric: 'box',
     name: 'Boilers'
   },
   {
-    metric: 'boxes',
+    metric: 'box',
     name: 'Schnitzel 220 grams'
   },{
-    metric: 'boxes',
+    metric: 'box',
     name: 'Crumbed chicken Kiev'
   },
   {
@@ -135,10 +139,6 @@ const itemList = [
   {
     metric: 'kg',
     name: 'Maryland fillet skin on'
-  },
-  {
-    metric: 'kg',
-    name: 'Drumstick fillet skinless'
   },
   {
     metric: 'kg',
@@ -157,15 +157,6 @@ const itemList = [
     name: 'Tenderloin'
   },
 ]
-
-const metricWithSpace = ['box', 'boxes']
-
-const metricToString = (metric) => {
-  if (metricWithSpace.includes(metric)) {
-    return ` ${metric}`
-  }
-  return `${metric}`
-}
 
 const activeValue = (value) => {
   return !(!value || value <= '0')
@@ -206,7 +197,7 @@ const IndexPage = () => {
       if (!activeValue(inputElement.value)) return
       const metricElement = item.querySelector('td[name="item-metric"]')
       const nameElement = item.querySelector('td[name="item-name"]')
-      const itemRowString = `${inputElement.value}${metricToString(metricElement.innerText)} ${nameElement.innerText}`
+      const itemRowString = `${inputElement.value} ${metricElement.innerText} ${nameElement.innerText}`
       existingItems.push(itemRowString)
     })
     const orderString = existingItems.join("\n")
@@ -215,6 +206,12 @@ const IndexPage = () => {
   }
 
   const handleInputBlur = ( e )  => {
+    // update metric innertext if value is greater than 1
+    if (e.target.parentElement.querySelector('td[name="item-metric"]').innerText === "box" && e.target.value > 1) {
+      e.target.parentElement.querySelector('td[name="item-metric"]').innerText = 'boxes'
+    } else if (e.target.parentElement.querySelector('td[name="item-metric"]').innerText === "boxes" && e.target.value <= 1) {
+      e.target.parentElement.querySelector('td[name="item-metric"]').innerText = 'box'
+    }
     handleOnSubmit()
     const inputRow = e.target.parentElement
 
