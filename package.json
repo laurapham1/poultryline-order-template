@@ -15,13 +15,15 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "@react-icons/all-files": "^4.1.0",
     "gatsby": "^5.7.0",
     "gatsby-plugin-manifest": "^5.8.0",
     "gatsby-plugin-postcss": "^6.10.0",
     "node": "^18.15.0",
     "postcss": "^8.4.23",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",

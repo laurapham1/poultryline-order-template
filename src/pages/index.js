@@ -1,5 +1,6 @@
 import * as React from "react"
 import {useState, useEffect} from 'react'
+import { FaClipboard, FaCheck } from "react-icons/fa"
 
 const orderList = [
   {
@@ -176,7 +177,7 @@ const IndexPage = () => {
     <main className="flex items-center justify-center flex-col gap-4 m-4 text-lg">
       <h1 className="text-2xl font-bold">PoultryLine Order Template 🐔</h1>
       <div id="page-content" className="flex justify-center flex-col gap-4">
-        <table className="border rounded-lg border-separate p-2">
+        <table className="border rounded-lg border-separate p-4">
             <tr>
               <th>Amount</th>
               <th>Metric</th>
@@ -185,17 +186,17 @@ const IndexPage = () => {
             {itemList.map((item, index) => {
               return(
               <tr>
-              <input className="border border-black rounded-md my-1 w-12 text-lg text-center" type="number" min="0" id={index} name="item-amount" onChange={handleInputBlur} onWheel={(e) => e.target.blur()}/>
+              <input className="border border-black rounded-md my-1 w-12 text-xl text-center" type="number" min="0" id={index} name="item-amount" onChange={handleInputBlur} onWheel={(e) => e.target.blur()}/>
               <td name="item-metric">{item.metric}</td>
               <td name="item-name">{item.name}</td>
             </tr>)
             })}
           </table>
         <div className="flex justify-between w-full">
-          <button onClick={handleClickCopy} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg" >{isCopyClicked ? 'COPIED!' : 'copy'}</button>
+          <button onClick={handleClickCopy} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg flex flex-row items-center gap-2" >{!isCopyClicked ? <FaClipboard/> : <FaCheck/>}{isCopyClicked ? 'copied!' : 'copy'}</button>
           <button onClick={handleClickClear} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg" >clear</button>
         </div>
-        <textarea className="border rounded-lg w-full p-2" id="template-text" name="template-text" rows={itemList.length} value={templateText} contenteditable='false' />
+        <textarea className="border rounded-lg w-full p-4" id="template-text" name="template-text" rows={itemList.length} value={templateText} contenteditable='false' />
       </div>
       <p>Made with ❤️ by Laura Pham</p>
     </main>
