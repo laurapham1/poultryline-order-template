@@ -1,7 +1,7 @@
 import * as React from "react"
 import {useState, useEffect} from 'react'
 
-const itemList = [
+const orderList = [
   {
     metric: 'kg',
     name: 'Giblet'
@@ -99,11 +99,13 @@ const activeValue = (value) => {
 const IndexPage = () => {
   const [templateText, setTemplateText] = useState("")
   const [isCopyClicked, setIsCopyClicked] = useState(false)
-  // const [isLoadingPage, setIsLoadingPage] = useState(true)
+  const [itemList, setItemList] = useState([])
+  const [isLoadingPage, setIsLoadingPage] = useState(true)
 
-  // useEffect(() => {
-  //   setIsLoadingPage(false)
-  // }, [])
+  useEffect(() => {
+    setItemList(orderList)
+    setIsLoadingPage(false)
+  }, [])
 
   useEffect(() => {
     if (isCopyClicked) {
@@ -164,12 +166,14 @@ const IndexPage = () => {
     window.location.reload();
   }
   
-  // if (!isLoadingPage) {
-  //   return <LoadingPage/>
-  // }
+  if (isLoadingPage) {
+    return <main className="flex items-center justify-center flex-col gap-4 m-4 text-lg h-screen">
+       <div class="loader"></div>
+    </main>
+  }
 
   return (
-    <main className="flex items-center justify-center flex-col gap-4 m-4">
+    <main className="flex items-center justify-center flex-col gap-4 m-4 text-lg">
       <h1 className="text-2xl font-bold">PoultryLine Order Template 🐔</h1>
       <div id="page-content" className="flex justify-center flex-col gap-4">
         <table className="border rounded-lg border-separate p-2">
