@@ -119,7 +119,12 @@ const IndexPage = () => {
   const handleClickCopy = () => {
     const textarea = document.querySelector('textarea')
     navigator.clipboard.writeText(textarea.value)
-    setIsCopyClicked(true)
+    .then(() => setIsCopyClicked(true))
+    .catch(() => {
+      textarea.select()
+      document.execCommand("copy")
+      setIsCopyClicked(true)
+    })
   }
 
 
