@@ -1,73 +1,6 @@
 import * as React from "react"
 import {useState, useEffect} from 'react'
-import loadingImage from '../images/favicon.ico';
 
-const pageStyles = {
-  color: "#232129",
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center'
-}
-
-const contentStyle = {
-  display: 'flex',
-   gap: '12px', 
-   flexDirection: 'column', 
-   maxWidth: '650px',
-   width: '-webkit-fill-available',
-   fontSize: '18px'
-  }
-
-const tableStyle = {
-  borderSpacing: '8px',
-  backgroundColor: 'white',
-  border: '1px solid',
-  borderRadius: '8px',
-  borderColor: 'gray'
-}
-
-const inputStyle = {
-  borderRadius: '4px',
-  border: '1px solid black',
-  padding: '4px',
-  fontSize: '18px',
-  width: '50px',
-}
-
-const actionButtonStyle = {
-  display: 'flex',
-  justifyContent: 'space-between'
-}
-
-const buttonStyle = {
-  width: 'fit-content',
-  backgroundColor: 'green',
-  border: 'none',
-  borderRadius: '8px',
-  fontSize: '18px',
-  padding: '8px',
-  color: 'white',
-  cursor: 'pointer',
-}
-const copyButtonStyle = {
-  ...buttonStyle,
-  backgroundColor: 'green',
-}
-
-const clearButtonStyle = {
-  ...buttonStyle,
-  backgroundColor: 'gray',
-}
-
-const textareaStyle = {
-  resize: 'none',
-  overflow: 'hidden',
-  fontFamily: 'inherit',
-  fontSize: '18px',
-  borderRadius: '8px',
-  padding: '8px',
-}
 const itemList = [
   {
     metric: 'kg',
@@ -79,7 +12,7 @@ const itemList = [
   },
   {
     metric: 'kg',
-    name: 'Hearts'
+    name: 'Heart'
   },
   {
     metric: 'box',
@@ -107,11 +40,11 @@ const itemList = [
   },
   {
     metric: 'box',
-    name: ' Baiada size 21 to 23 bird'
+    name: ' Baiada size 21 to 23 birds'
   },
   {
     metric: 'box',
-    name: 'Baiada size 26 to 32 bird'
+    name: 'Baiada size 26 to 32 birds'
   },
   {
     metric: 'box',
@@ -166,11 +99,11 @@ const activeValue = (value) => {
 const IndexPage = () => {
   const [templateText, setTemplateText] = useState("")
   const [isCopyClicked, setIsCopyClicked] = useState(false)
-  const [isLoadingPage, setIsLoadingPage] = useState(true)
+  // const [isLoadingPage, setIsLoadingPage] = useState(true)
 
-  useEffect(() => {
-    setIsLoadingPage(true)
-  }, [])
+  // useEffect(() => {
+  //   setIsLoadingPage(false)
+  // }, [])
 
   useEffect(() => {
     if (isCopyClicked) {
@@ -231,34 +164,34 @@ const IndexPage = () => {
     window.location.reload();
   }
   
-  // if (isLoadingPage) {
-  //   return <><img src={loadingImage} style={loadingImageStyle} alt="Spinning Loading Chicken" id="loadingImage"/><p>Loading</p></>
+  // if (!isLoadingPage) {
+  //   return <LoadingPage/>
   // }
 
   return (
-    <main style={pageStyles}>
-      <h1>PoultryLine Order Template 🐔</h1>
-      <div style={contentStyle}>
-     <table style={tableStyle}>
-        <tr>
-          <th>Amount</th>
-          <th>Metric</th>
-          <th>Item Name</th>
-        </tr>
-        {itemList.map((item, index) => {
-          return(
-          <tr>
-          <input type="number" min="0" id={index} name="item-amount" onChange={handleInputBlur} style={inputStyle} onWheel={(e) => e.target.blur()}/>
-          <td name="item-metric">{item.metric}</td>
-          <td name="item-name">{item.name}</td>
-        </tr>)
-        })}
-      </table>
-    <div style={actionButtonStyle}>
-      <button onClick={handleClickCopy} style={copyButtonStyle}>{isCopyClicked ? 'copied!' : 'copy'}</button>
-      <button onClick={handleClickClear} style={clearButtonStyle}>clear</button>
-    </div>
-      <textarea id="template-text" name="template-text" rows={itemList.length} cols="50" value={templateText} contenteditable='false' style={textareaStyle}/>
+    <main className="flex items-center justify-center flex-col gap-4 m-4">
+      <h1 className="text-2xl font-bold">PoultryLine Order Template 🐔</h1>
+      <div id="page-content" className="flex justify-center flex-col gap-4">
+        <table className="border rounded-lg border-separate p-2">
+            <tr>
+              <th>Amount</th>
+              <th>Metric</th>
+              <th>Item Name</th>
+            </tr>
+            {itemList.map((item, index) => {
+              return(
+              <tr>
+              <input className="border border-black rounded-md my-1 w-12 text-lg text-center" type="number" min="0" id={index} name="item-amount" onChange={handleInputBlur} onWheel={(e) => e.target.blur()}/>
+              <td name="item-metric">{item.metric}</td>
+              <td name="item-name">{item.name}</td>
+            </tr>)
+            })}
+          </table>
+        <div className="flex justify-between w-full">
+          <button onClick={handleClickCopy} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg" >{isCopyClicked ? 'COPIED!' : 'copy'}</button>
+          <button onClick={handleClickClear} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg" >clear</button>
+        </div>
+        <textarea className="border rounded-lg w-full p-2" id="template-text" name="template-text" rows={itemList.length} value={templateText} contenteditable='false' />
       </div>
       <p>Made with ❤️ by Laura Pham</p>
     </main>
