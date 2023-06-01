@@ -131,8 +131,9 @@ const template = [
 	},
 ];
 
-const orderTemplate = template.map((item, index) => {
-	return { id: index, ...item };
-});
+const OrderTemplate = () =>
+	template.map((item, index) => {
+		return { id: index, ...item };
+	});
 
-export default orderTemplate;
+export default OrderTemplate;

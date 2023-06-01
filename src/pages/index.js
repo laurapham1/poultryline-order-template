@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { FaClipboard, FaCheck, FaHandHoldingHeart } from 'react-icons/fa';
-import { orderTemplate } from './orderTemplate';
+import orderTemplate from '../utils/OrderTemplate';
 
 const IndexPage = () => {
 	const [templateText, setTemplateText] = useState('');
@@ -53,7 +53,13 @@ const IndexPage = () => {
 		const updatedItem = itemList.find(
 			(item) => item.id === parseInt(e.target.id)
 		);
-		updatedItem.amount = parseInt(e.target.value, 10);
+		const newAmount = parseInt(e.target.value, 10);
+		updatedItem.amount = newAmount;
+		if (newAmount > 1 && updatedItem.metric === 'box') {
+			updatedItem.metric = 'boxes';
+		} else if (newAmount <= 1 && updatedItem.metric === 'boxes') {
+			updatedItem.metric = 'box';
+		}
 		setItemList(itemList);
 		localStorage.setItem('orderList', JSON.stringify(itemList));
 		updateTemplateText();
@@ -72,11 +78,6 @@ const IndexPage = () => {
 		);
 	}
 
-	const transformedMetric = (metric, amount) => {
-		if (metric === 'kg') return 'kg';
-		return metric === 'box' && amount > 1 ? 'boxes' : 'box';
-	};
-
 	const templateColumns = ['Amount', 'Metric', 'Item Name'];
 
 	return (
@@ -93,7 +94,7 @@ const IndexPage = () => {
 						return (
 							<tr className={item.amount > 0 ? 'text-green-600' : ''}>
 								<input
-									className='border border-black rounded-md m-2 mx-1 w-12 text-xl text-center'
+									className='border border-black rounded-md m-1 w-12 text-xl text-center'
 									type='number'
 									min='0'
 									id={item.id}
@@ -102,9 +103,7 @@ const IndexPage = () => {
 									onWheel={(e) => e.target.blur()}
 									value={item.amount}
 								/>
-								<td name='item-metric'>
-									{transformedMetric(item.metric, item.amount)}
-								</td>
+								<td name='item-metric'>{item.metric}</td>
 								<td name='item-name'>{item.name}</td>
 							</tr>
 						);
