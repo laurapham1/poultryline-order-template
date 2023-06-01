@@ -1,208 +1,150 @@
-import * as React from "react"
-import {useState, useEffect} from 'react'
-import { FaClipboard, FaCheck } from "react-icons/fa"
-
-const orderList = [
-  {
-    metric: 'kg',
-    name: 'Giblet'
-  },
-  {
-    metric: 'kg',
-    name: 'Liver'
-  },
-  {
-    metric: 'kg',
-    name: 'Heart'
-  },
-  {
-    metric: 'box',
-    name: 'Necks'
-  },
-  {
-    metric: 'kg',
-    name: 'Spare ribs skin on'
-  },
-  {
-    metric: 'kg',
-    name: 'Drumstick fillet skinless'
-  },
-  {
-    metric: 'box',
-    name: 'WINGS XXLarge'
-  },
-  {
-    metric: 'box',
-    name: 'Supreme XL FRESH & INGHAM BRAND'
-  },
-  {
-    metric: 'box',
-    name: 'Baiada size 17 birds'
-  },
-  {
-    metric: 'box',
-    name: ' Baiada size 21 to 23 birds'
-  },
-  {
-    metric: 'box',
-    name: 'Baiada size 26 to 32 birds'
-  },
-  {
-    metric: 'box',
-    name: 'Inghams size 9 to 11 birds'
-  },
-  {
-    metric: 'box',
-    name: 'Chest bone'
-  },
-  {
-    metric: 'box',
-    name: 'Boilers'
-  },
-  {
-    metric: 'box',
-    name: 'Schnitzel 220 grams'
-  },{
-    metric: 'box',
-    name: 'Crumbed chicken Kiev'
-  },
-  {
-    metric: 'kg',
-    name: 'Maryland fillet skinless'
-  },
-  {
-    metric: 'kg',
-    name: 'Maryland fillet skin on'
-  },
-  {
-    metric: 'kg',
-    name: 'Spare ribs skinless'
-  },
-  {
-    metric: 'kg',
-    name: 'Breast fillet skinless'
-  },
-  {
-    metric: 'kg',
-    name: 'Breast fillet skin on'
-  },
-  {
-    metric: 'kg',
-    name: 'Tenderloin'
-  },
-]
-
-const activeValue = (value) => {
-  return !(!value || value <= '0')
-}
-
+import * as React from 'react';
+import { useState, useEffect } from 'react';
+import { FaClipboard, FaCheck, FaHandHoldingHeart } from 'react-icons/fa';
+import { orderTemplate } from './orderTemplate';
 
 const IndexPage = () => {
-  const [templateText, setTemplateText] = useState("")
-  const [isCopyClicked, setIsCopyClicked] = useState(false)
-  const [itemList, setItemList] = useState([])
-  const [isLoadingPage, setIsLoadingPage] = useState(true)
+	const [templateText, setTemplateText] = useState('');
+	const [isCopyClicked, setIsCopyClicked] = useState(false);
+	const [itemList, setItemList] = useState([]);
+	const [isLoadingPage, setIsLoadingPage] = useState(true);
 
-  useEffect(() => {
-    setItemList(orderList)
-    setIsLoadingPage(false)
-  }, [])
+	useEffect(() => {
+		const storedList = localStorage.getItem('orderList');
+		if (storedList) {
+			console.log('extracting local storage list', JSON.parse(storedList));
+			setItemList(JSON.parse(storedList));
+		} else {
+			setItemList(orderTemplate);
+		}
+		setIsLoadingPage(false);
+	}, []);
 
-  useEffect(() => {
-    if (isCopyClicked) {
-      setTimeout(() => {
-        setIsCopyClicked(false)
-      }, 2500)
-    }
-  }, [isCopyClicked])
+	useEffect(() => {
+		updateTemplateText();
+	}, [itemList]);
 
-  const handleClickCopy = () => {
-    const textarea = document.querySelector('textarea')
-    textarea.select()
-    document.execCommand("copy")
-    setIsCopyClicked(true)
-  }
+	useEffect(() => {
+		if (isCopyClicked) {
+			setTimeout(() => {
+				setIsCopyClicked(false);
+			}, 2500);
+		}
+	}, [isCopyClicked]);
 
+	const handleClickCopy = () => {
+		const textarea = document.querySelector('textarea');
+		textarea.select();
+		document.execCommand('copy');
+		setIsCopyClicked(true);
+	};
 
-  const handleOnSubmit = () => {
-    const itemRows = document.querySelectorAll('tr')
-    let existingItems = []
-    itemRows.forEach((item, index) => {
-      if (index === 0) return
-      const inputElement = item.querySelector('input[name="item-amount"]')
-      if (!activeValue(inputElement.value)) return
-      const metricElement = item.querySelector('td[name="item-metric"]')
-      const nameElement = item.querySelector('td[name="item-name"]')
-      const itemRowString = `${inputElement.value} ${metricElement.innerText} ${nameElement.innerText}`
-      existingItems.push(itemRowString)
-    })
-    const orderString = existingItems.join("\n")
-    // setTemplateText 
-    setTemplateText(orderString)
-  }
+	const updateTemplateText = () => {
+		const orderString = itemList
+			.filter((item) => item.amount)
+			.map((item) => {
+				return `${item.amount} ${item.metric} ${item.name}`;
+			})
+			.join('\n');
+		setTemplateText(orderString);
+	};
 
-  const handleInputBlur = ( e )  => {
-    // update metric innertext if value is greater than 1
-    if (e.target.parentElement.querySelector('td[name="item-metric"]').innerText === "box" && e.target.value > 1) {
-      e.target.parentElement.querySelector('td[name="item-metric"]').innerText = 'boxes'
-    } else if (e.target.parentElement.querySelector('td[name="item-metric"]').innerText === "boxes" && e.target.value <= 1) {
-      e.target.parentElement.querySelector('td[name="item-metric"]').innerText = 'box'
-    }
-    handleOnSubmit()
-    const inputRow = e.target.parentElement
+	const handleInputBlur = (e) => {
+		const updatedItem = itemList.find(
+			(item) => item.id === parseInt(e.target.id)
+		);
+		updatedItem.amount = parseInt(e.target.value, 10);
+		setItemList(itemList);
+		localStorage.setItem('orderList', JSON.stringify(itemList));
+		updateTemplateText();
+	};
 
-    // Check if active input
-    if (!activeValue(e.target.value)) {
-      inputRow.style.color = 'inherit'
-      inputRow.style.border = '1px solid red'
-    } else {
-      // add text color to active row
-      inputRow.style.color = 'green'
-      inputRow.style.border = 'none'
+	const handleClickClear = () => {
+		setItemList(orderTemplate);
+		localStorage.setItem('orderList', JSON.stringify(orderTemplate));
+	};
 
-    }
-  }
+	if (isLoadingPage) {
+		return (
+			<main className='flex items-center justify-center flex-col gap-4 m-4 text-lg h-screen'>
+				<div class='loader'></div>
+			</main>
+		);
+	}
 
-  const handleClickClear = () => {
-    window.location.reload();
-  }
-  
-  if (isLoadingPage) {
-    return <main className="flex items-center justify-center flex-col gap-4 m-4 text-lg h-screen">
-       <div class="loader"></div>
-    </main>
-  }
+	const transformedMetric = (metric, amount) => {
+		if (metric === 'kg') return 'kg';
+		return metric === 'box' && amount > 1 ? 'boxes' : 'box';
+	};
 
-  return (
-    <main className="flex items-center justify-center flex-col gap-4 m-4 text-lg">
-      <h1 className="text-2xl font-bold">PoultryLine Order Template 🐔</h1>
-      <div id="page-content" className="flex justify-center flex-col gap-4">
-        <table className="border rounded-lg border-separate p-4">
-            <tr>
-              <th>Amount</th>
-              <th>Metric</th>
-              <th>Item Name</th>
-            </tr>
-            {itemList.map((item, index) => {
-              return(
-              <tr>
-              <input className="border border-black rounded-md my-1 w-12 text-xl text-center" type="number" min="0" id={index} name="item-amount" onChange={handleInputBlur} onWheel={(e) => e.target.blur()}/>
-              <td name="item-metric">{item.metric}</td>
-              <td name="item-name">{item.name}</td>
-            </tr>)
-            })}
-          </table>
-        <div className="flex justify-between w-full">
-          <button onClick={handleClickCopy} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg flex flex-row items-center gap-2" >{!isCopyClicked ? <FaClipboard/> : <FaCheck/>}{isCopyClicked ? 'copied!' : 'copy'}</button>
-          <button onClick={handleClickClear} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg" >clear</button>
-        </div>
-        <textarea className="border rounded-lg w-full p-4" id="template-text" name="template-text" rows={itemList.length} value={templateText} contenteditable='false' />
-      </div>
-      <p>Made with ❤️ by Laura Pham</p>
-    </main>
-  )
-}
+	const templateColumns = ['Amount', 'Metric', 'Item Name'];
 
-export default IndexPage
+	return (
+		<main className='flex items-center justify-center flex-col gap-4 m-4 text-lg font-light'>
+			<h1 className='text-2xl'>PoultryLine Order Template 🐔</h1>
+			<div id='page-content' className='flex justify-center flex-col gap-4'>
+				<table className='border rounded-lg border-separate p-4 font-normal'>
+					<tr>
+						{templateColumns.map((col) => (
+							<th>{col}</th>
+						))}
+					</tr>
+					{itemList.map((item) => {
+						return (
+							<tr className={item.amount > 0 ? 'text-green-600' : ''}>
+								<input
+									className='border border-black rounded-md m-2 mx-1 w-12 text-xl text-center'
+									type='number'
+									min='0'
+									id={item.id}
+									name='item-amount'
+									onChange={handleInputBlur}
+									onWheel={(e) => e.target.blur()}
+									value={item.amount}
+								/>
+								<td name='item-metric'>
+									{transformedMetric(item.metric, item.amount)}
+								</td>
+								<td name='item-name'>{item.name}</td>
+							</tr>
+						);
+					})}
+				</table>
+				<div className='flex justify-between w-full'>
+					<button
+						onClick={handleClickCopy}
+						className='bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg flex flex-row items-center gap-2'
+					>
+						{!isCopyClicked ? <FaClipboard /> : <FaCheck />}
+						{isCopyClicked ? 'copied!' : 'copy'}
+					</button>
+					<button
+						onClick={handleClickClear}
+						className='bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg'
+					>
+						clear
+					</button>
+				</div>
+				<textarea
+					className='border rounded-lg w-full p-4'
+					id='template-text'
+					name='template-text'
+					rows={itemList.length}
+					value={templateText}
+					contenteditable='false'
+				/>
+			</div>
+			<footer>
+				<span className='flex items-center gap-2 text-sm'>
+					Made with <FaHandHoldingHeart /> by your favourite daughter
+				</span>
+			</footer>
+		</main>
+	);
+};
 
-export const Head = () => {<title>Home Page</title>}
+export default IndexPage;
+
+export const Head = () => {
+	<title>Home Page</title>;
+};
