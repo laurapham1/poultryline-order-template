@@ -11,7 +11,8 @@ const IndexPage = () => {
 
 	useEffect(() => {
 		const storedList = localStorage.getItem('orderList');
-		if (storedList && JSON.parse(storedList)) {
+		console.log(storedList);
+		if (storedList && storedList !== 'undefined') {
 			console.log('extracting local storage list', JSON.parse(storedList));
 			setItemList(JSON.parse(storedList));
 		} else {
