@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { FaClipboard, FaCheck, FaHandHoldingHeart } from 'react-icons/fa';
 import orderTemplate from '../utils/OrderTemplate';
 
@@ -20,9 +20,19 @@ const IndexPage = () => {
 		setIsLoadingPage(false);
 	}, []);
 
+	const updateTemplateText = useCallback(() => {
+		const orderString = itemList
+			.filter((item) => item.amount)
+			.map((item) => {
+				return `${item.amount} ${item.metric} ${item.name}`;
+			})
+			.join('\n');
+		setTemplateText(orderString);
+	}, [itemList]);
+
 	useEffect(() => {
 		updateTemplateText();
-	}, [itemList]);
+	}, [itemList, updateTemplateText]);
 
 	useEffect(() => {
 		if (isCopyClicked) {
@@ -37,16 +47,6 @@ const IndexPage = () => {
 		textarea.select();
 		document.execCommand('copy');
 		setIsCopyClicked(true);
-	};
-
-	const updateTemplateText = () => {
-		const orderString = itemList
-			.filter((item) => item.amount)
-			.map((item) => {
-				return `${item.amount} ${item.metric} ${item.name}`;
-			})
-			.join('\n');
-		setTemplateText(orderString);
 	};
 
 	const handleInputBlur = (e) => {
@@ -66,8 +66,11 @@ const IndexPage = () => {
 	};
 
 	const handleClickClear = () => {
-		setItemList(orderTemplate);
-		localStorage.setItem('orderList', JSON.stringify(orderTemplate));
+		const clearedItems = itemList.map((item) => {
+			return { ...item, amount: '' };
+		});
+		setItemList(clearedItems);
+		localStorage.setItem('orderList', JSON.stringify(clearedItems));
 	};
 
 	if (isLoadingPage) {
@@ -111,14 +114,14 @@ const IndexPage = () => {
 				</table>
 				<div className='flex justify-between w-full'>
 					<button
-						onClick={handleClickCopy}
+						onClick={() => handleClickCopy()}
 						className='bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg flex flex-row items-center gap-2'
 					>
 						{!isCopyClicked ? <FaClipboard /> : <FaCheck />}
 						{isCopyClicked ? 'copied!' : 'copy'}
 					</button>
 					<button
-						onClick={handleClickClear}
+						onClick={() => handleClickClear()}
 						className='bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg'
 					>
 						clear
