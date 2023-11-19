@@ -47,12 +47,12 @@ const template = [
 	{
 		amount: '',
 		metric: 'box',
-		name: ' Baiada size 21 to 23 birds',
+		name: ' Baiada size 20 to 23 birds',
 	},
 	{
 		amount: '',
 		metric: 'box',
-		name: 'Baiada size 26 to 32 birds',
+		name: 'Baiada size 26 to 29 birds',
 	},
 	{
 		amount: '',
@@ -78,6 +78,11 @@ const template = [
 		amount: '',
 		metric: 'box',
 		name: 'Crumbed chicken Kiev',
+	},
+	{
+		amount: '',
+		metric: 'box',
+		name: 'Chicken feet XL'
 	},
 	{
 		amount: '',
