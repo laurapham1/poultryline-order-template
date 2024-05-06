@@ -41,6 +41,12 @@ const IndexPage = () => {
 		}
 	}, [isCopyClicked]);
 
+	const handleChangeItem = (e) => {
+		const editedItem = itemList.find((item) => item.id === parseInt(e.target.id, 10))
+		editedItem.name = e.target.innerHTML;
+		localStorage.setItem('orderList', JSON.stringify(itemList));
+	}
+	
 	const handleClickCopy = () => {
 		const textarea = document.querySelector('textarea');
 		textarea.select();
@@ -106,7 +112,7 @@ const IndexPage = () => {
 									value={item.amount}
 								/>
 								<td name='item-metric'>{item.metric}</td>
-								<td name='item-name'>{item.name}</td>
+								<td name='item-name' contentEditable={true} onInput={handleChangeItem} id={item.id}>{item.name}</td>
 							</tr>
 						);
 					})}
