@@ -47,22 +47,32 @@ const template = [
 	{
 		amount: '',
 		metric: 'box',
-		name: ' Baiada size 20 to 23 birds',
+		name: ' Baiada size 21 to 23 birds',
 	},
 	{
 		amount: '',
 		metric: 'box',
-		name: 'Baiada size 26 to 29 birds',
+		name: 'Baiada size 27 to 30 birds',
 	},
 	{
 		amount: '',
 		metric: 'box',
-		name: 'Inghams size 9 to 11 birds',
+		name: 'Inghams size 9 birds',
 	},
 	{
 		amount: '',
 		metric: 'box',
-		name: 'Chest bone',
+		name: 'Inghams size 10 birds',
+	},
+	{
+		amount: '',
+		metric: 'box',
+		name: 'Inghams size 11 birds',
+	},
+	{
+		amount: '',
+		metric: 'box',
+		name: 'Frames only',
 	},
 	{
 		amount: '',
@@ -98,6 +108,11 @@ const template = [
 		amount: '',
 		metric: 'kg',
 		name: 'Spare ribs skinless',
+	},
+	{
+		amount: '',
+		metric: 'kg',
+		name: 'Spare ribs skin on',
 	},
 	{
 		amount: '',
