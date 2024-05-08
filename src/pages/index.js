@@ -10,12 +10,12 @@ const IndexPage = () => {
   const [isLoadingPage, setIsLoadingPage] = useState(true);
 
   useEffect(() => {
-    if (localStorage.getItem("clearStorage") === "undefined") {
+    if (!localStorage.getItem("currentVersion")) {
       localStorage.clear();
-      localStorage.setItem("clearStorage", "v1");
+      localStorage.setItem("currentVersion", "v1");
     }
     const storedList = localStorage.getItem("orderList");
-    if (storedList && storedList !== "undefined") {
+    if (storedList) {
       setItemList(JSON.parse(storedList));
     } else {
       setItemList(orderTemplate);
