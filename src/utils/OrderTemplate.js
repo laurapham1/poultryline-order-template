@@ -1,6 +1,36 @@
 const template = [
   {
     amount: "",
+    metric: "kg",
+    name: "Giblet",
+  },
+  {
+    amount: "",
+    metric: "kg",
+    name: "Liver",
+  },
+  {
+    amount: "",
+    metric: "kg",
+    name: "Heart",
+  },
+  {
+    amount: "",
+    metric: "box",
+    name: "Necks",
+  },
+  {
+    amount: "",
+    metric: "kg",
+    name: "Spare ribs XXL skin on",
+  },
+  {
+    amount: "",
+    metric: "kg",
+    name: "Spare ribs XXL skinless",
+  },
+  {
+    amount: "",
     metric: "box",
     name: "Baiada size 17 birds",
   },
@@ -22,12 +52,12 @@ const template = [
   {
     amount: "",
     metric: "kg",
-    name: "Breast fillet skinless",
+    name: "Breast fillet skin on",
   },
   {
     amount: "",
     metric: "kg",
-    name: "Breast fillet skin on",
+    name: "Breast fillet skinless",
   },
   {
     amount: "",
@@ -56,16 +86,6 @@ const template = [
   },
   {
     amount: "",
-    metric: "kg",
-    name: "Giblet",
-  },
-  {
-    amount: "",
-    metric: "kg",
-    name: "Heart",
-  },
-  {
-    amount: "",
     metric: "box",
     name: "Inghams size 9 birds",
   },
@@ -82,11 +102,6 @@ const template = [
   {
     amount: "",
     metric: "kg",
-    name: "Liver",
-  },
-  {
-    amount: "",
-    metric: "kg",
     name: "Maryland fillet skinless",
   },
   {
@@ -98,26 +113,6 @@ const template = [
     amount: "",
     metric: "kg",
     name: "FROZEN Maryland fillet skin on",
-  },
-  {
-    amount: "",
-    metric: "box",
-    name: "Necks",
-  },
-  {
-    amount: "",
-    metric: "kg",
-    name: "Spare ribs skinless",
-  },
-  {
-    amount: "",
-    metric: "kg",
-    name: "Spare ribs skin on",
-  },
-  {
-    amount: "",
-    metric: "kg",
-    name: "Spare ribs XXL skin on",
   },
   {
     amount: "",

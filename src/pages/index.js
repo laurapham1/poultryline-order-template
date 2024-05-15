@@ -12,7 +12,7 @@ const IndexPage = () => {
   useEffect(() => {
     if (!localStorage.getItem("currentVersion")) {
       localStorage.clear();
-      localStorage.setItem("currentVersion", "v1");
+      localStorage.setItem("currentVersion", "v2");
     }
     const storedList = localStorage.getItem("orderList");
     if (storedList) {
