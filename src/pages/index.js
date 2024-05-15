@@ -8,11 +8,12 @@ const IndexPage = () => {
   const [isCopyClicked, setIsCopyClicked] = useState(false);
   const [itemList, setItemList] = useState([]);
   const [isLoadingPage, setIsLoadingPage] = useState(true);
-
+  const currentVersion = "v2"
+  
   useEffect(() => {
-    if (!localStorage.getItem("currentVersion")) {
+    if (!localStorage.getItem("currentVersion") !== currentVersion) {
       localStorage.clear();
-      localStorage.setItem("currentVersion", "v2");
+      localStorage.setItem("currentVersion", currentVersion);
     }
     const storedList = localStorage.getItem("orderList");
     if (storedList) {
